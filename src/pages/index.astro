@@ -1,0 +1,9 @@
+---
+import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { posts } from '../lib/posts.js';
+---
+<Base>
+  <h3>সাম্প্রতিক লেখা</h3>
+  <PostList items={posts} />
+</Base>

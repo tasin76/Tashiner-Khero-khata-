@@ -1,0 +1,13 @@
+---
+import { fmt } from '../lib/posts.js';
+import { slugOf } from '../lib/categories.js';
+const { items } = Astro.props;
+---
+{items.length === 0 && <p>এখনো কোনো লেখা নেই। শিগগিরই আসছে…</p>}
+{items.map((p) => (
+  <article class="card">
+    <h2><a href={`/posts/${p.slug}`}>{p.title}</a></h2>
+    <div class="meta"><a href={`/category/${slugOf(p.category)}`}>{p.category}</a> · {fmt(p.date)}</div>
+    {p.description && <p>{p.description}</p>}
+  </article>
+))}

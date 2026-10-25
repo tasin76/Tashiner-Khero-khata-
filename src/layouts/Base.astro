@@ -1,0 +1,64 @@
+---
+import { categories } from '../lib/categories.js';
+const { title = 'তাসীনের খেরোখাতা', description = 'তাসীনের লেখালেখির খাতা' } = Astro.props;
+const full = title === 'তাসীনের খেরোখাতা' ? title : `${title} | তাসীনের খেরোখাতা`;
+---
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{full}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <div class="sheet">
+    <header>
+      <a class="brand" href="/">তাসীনের খেরোখাতা</a>
+      <p class="tag">ছেঁড়া পাতার ফাঁকে জমানো কথা</p>
+      <nav>
+        {categories.map((c) => <a href={`/category/${c.slug}`}>{c.name}</a>)}
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer>© {new Date().getFullYear()} তাসীন · সবকিছু হাতে লেখা মনের কথা</footer>
+  </div>
+</body>
+</html>
+<style is:global>
+  :root { --ink:#3b2a1a; --brown:#7a4b22; --edge:#c9a96a; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; color: var(--ink); font-family: 'Tiro Bangla','Hind Siliguri',serif; font-size: 19px; line-height: 1.9;
+    background-color: #e4d2a4;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/><feColorMatrix values='0 0 0 0 .35  0 0 0 0 .22  0 0 0 0 .1  0 0 0 .18 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"),
+      radial-gradient(ellipse at 50% 0%, #f7ecd0 0%, #e9d6a6 60%, #d4bb83 100%);
+    background-attachment: fixed;
+  }
+  .sheet {
+    max-width: 780px; margin: 24px auto; padding: 28px 36px 20px; min-height: 90vh;
+    background: linear-gradient(#f6ebcd, #f0e0b8);
+    border: 1px solid var(--edge); box-shadow: 0 0 0 6px rgba(120,80,30,.08), 0 12px 40px rgba(80,50,20,.35), inset 0 0 70px rgba(150,100,40,.25);
+  }
+  header { text-align: center; border-bottom: 2px double var(--brown); padding-bottom: 14px; margin-bottom: 26px; }
+  .brand { font-size: 2.4rem; color: var(--brown); text-decoration: none; }
+  .tag { margin: 0; font-style: italic; opacity: .75; font-size: .95rem; }
+  nav { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: center; font-family: 'Hind Siliguri',sans-serif; font-size: .95rem; }
+  nav a { color: var(--ink); text-decoration: none; border-bottom: 1px dashed transparent; }
+  nav a:hover { border-bottom-color: var(--brown); color: var(--brown); }
+  a { color: var(--brown); }
+  h1,h2,h3 { line-height: 1.4; font-weight: 400; }
+  .card { padding: 14px 0; border-bottom: 1px dashed var(--edge); }
+  .card h2 { margin: 0; font-size: 1.5rem; }
+  .card h2 a { text-decoration: none; }
+  .meta { font-family: 'Hind Siliguri',sans-serif; font-size: .85rem; opacity: .75; }
+  .prose p { margin: 0 0 1.1em; }
+  .prose blockquote { border-left: 3px solid var(--brown); margin: 1em 0; padding-left: 14px; font-style: italic; }
+  .prose img { max-width: 100%; }
+  footer { text-align: center; margin-top: 36px; padding-top: 12px; border-top: 1px solid var(--edge); font-size: .85rem; opacity: .7; font-family: 'Hind Siliguri',sans-serif; }
+  @media (max-width: 600px) { .sheet { margin: 0; padding: 18px; } .brand { font-size: 1.9rem; } body { font-size: 18px; } }
+</style>

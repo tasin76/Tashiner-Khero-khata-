@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { posts } from '../../lib/posts.js';
+import { categories } from '../../lib/categories.js';
+export function getStaticPaths() {
+  return categories.map((c) => ({ params: { slug: c.slug }, props: { cat: c } }));
+}
+const { cat } = Astro.props;
+const items = posts.filter((p) => p.category === cat.name);
+---
+<Base title={cat.name}>
+  <h1>{cat.name}</h1>
+  <PostList items={items} />
+</Base>

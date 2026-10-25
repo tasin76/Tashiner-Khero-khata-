@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts, fmt } from '../../lib/posts.js';
+import { slugOf } from '../../lib/categories.js';
+export function getStaticPaths() {
+  return posts.map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = post;
+---
+<Base title={post.title} description={post.description}>
+  <article>
+    <h1>{post.title}</h1>
+    <div class="meta"><a href={`/category/${slugOf(post.category)}`}>{post.category}</a> · {fmt(post.date)}</div>
+    <div class="prose"><Content /></div>
+  </article>
+</Base>
